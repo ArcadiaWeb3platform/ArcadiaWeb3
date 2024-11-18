@@ -30,6 +30,30 @@ To get started with the ArcadiaWeb3 project, follow these steps:
     ```bash
     npm start
     ```
+    ## Token Information
+
+Arcadia Coin (ARCC) is the native token of the ArcadiaWeb3 ecosystem. It is used for various functions within the platform and enables users to engage in the economy.
+
+### Token Details
+- **Token Name**: Arcadia Coin
+- **Symbol**: ARCC
+- **Smart Contract Address**: `EQB3ccW46LFouMx0bxF6HbV8zHPzcxDO2RND7HIlSaxmGWea`
+- **Associated Domain**: [arcadiacoin.ton](https://tonviewer.com/arcadiacoin.ton)
+- **Contract Type**: Jetton Master
+
+### Description
+Arcadia Coin (ARCC) powers various features of the ArcadiaWeb3 platform, allowing users to earn rewards and participate in ecosystem activities.
+
+### Viewing Links
+- [View contract on TonViewer](https://tonviewer.com/arcadiacoin.ton)
+- [View contract on TonScan](https://tonscan.org/address/EQB3ccW46LFouMx0bxF6HbV8zHPzcxDO2RND7HIlSaxmGWea)
+- [View on DYOR](https://dyor.io/ru/token/EQB3ccW46LFouMx0bxF6HbV8zHPzcxDO2RND7HIlSaxmGWea)
+
+### Note
+The contract is linked to the domain `arcadiacoin.ton`, which simplifies its use and identification within the TON network.
+
+For more detailed information, please refer to the [token details page](https://dyor.io/ru/token/EQB3ccW46LFouMx0bxF6HbV8zHPzcxDO2RND7HIlSaxmGWea).
+
 ## License
 This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
 
