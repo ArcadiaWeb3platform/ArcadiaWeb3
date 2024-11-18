@@ -30,3 +30,6 @@ To get started with the ArcadiaWeb3 project, follow these steps:
     ```bash
     npm start
     ```
+## License
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
+
