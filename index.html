@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arcadia Liquidity Platform</title>
+    <script src="https://unpkg.com/@tonconnect/sdk"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tonweb"></script>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #4c6ef5;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin: 15px 0;
+            background: #4c6ef5; /* Indigo */
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #2e57e8; /* Lighter indigo */
+        }
+
+        .info {
+            margin-top: 20px;
+        }
+
+        .info p {
+            font-size: 14px;
+            margin: 5px 0;
+        }
+
+        .info strong {
+            color: #4c6ef5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Arcadia Liquidity Platform</h1>
+        <button id="connectWallet">Connect TON Wallet</button>
+        <div class="info">
+            <p><strong>Wallet Address:</strong> <span id="walletAddress">-</span></p>
+            <p><strong>ARCC Balance:</strong> <span id="arccBalance">-</span></p>
+            <p><strong>Liquidity Status:</strong> <span id="liquidityStatus">-</span></p>
+        </div>
+        <button id="addLiquidity">Add Liquidity</button>
+        <button id="removeLiquidity">Remove Liquidity</button>
+    </div>
+
+    <script>
+        // Initialize TON Connect
+        const TonConnect = window.TonConnect;
+        const connector = new TonConnect();
+
+        // ARCC Token Contract Address
+        const arccTokenContract = "EQB3ccW46LFouMx0bxF6HbV8zHPzcxDO2RND7HIlSaxmGWea";
+
+        // Liquidity Pool Contract Address
+        const liquidityPoolContract = "EQB0WucCJ-AOcqLyyPQKEw7W6UCQqs_ya7v69aW9nDP3fHMH";
+
+        // Wallet Connection Handler
+        document.getElementById('connectWallet').addEventListener('click', async () => {
+            try {
+                await connector.connectWallet();
+                const wallet = await connector.getWallet();
+                const userWalletAddress = wallet.account.address;
+
+                // Display wallet address
+                document.getElementById('walletAddress').textContent = userWalletAddress;
+
+                // Fetch ARCC balance
+                const arccBalance = await getARCCBalance(userWalletAddress);
+                document.getElementById('arccBalance').textContent = `${arccBalance} ARCC`;
+
+                // Check liquidity status
+                const liquidityStatus = await checkLiquidity(userWalletAddress);
+                document.getElementById('liquidityStatus').textContent = liquidityStatus;
+            } catch (error) {
+                console.error("Error connecting wallet:", error);
+                alert("Failed to connect wallet. Please try again.");
+            }
+        });
+
+        // Function to fetch ARCC balance
+        async function getARCCBalance(userWalletAddress) {
+            try {
+                const tonweb = new TonWeb();
+                const arccContract = new tonweb.Contract({
+                    address: arccTokenContract,
+                });
+                const result = await arccContract.runMethod("get_balance", [userWalletAddress]);
+                return result.balance / 1e9; // Convert to ARCC
+            } catch (error) {
+                console.error("Error fetching ARCC balance:", error);
+                return "Error";
+            }
+        }
+
+        // Function to check liquidity
+        async function checkLiquidity(userWalletAddress) {
+            try {
+                const tonweb = new TonWeb();
+                const poolContract = new tonweb.Contract({
+                    address: liquidityPoolContract,
+                });
+                const result = await poolContract.runMethod("get_user_shares", [userWalletAddress]);
+                if (result.shares > 0) {
+                    return "Liquidity added.";
+                } else {
+                    return "No liquidity found.";
+                }
+            } catch (error) {
+                console.error("Error checking liquidity:", error);
+                return "Error";
+            }
+        }
+
+        // Handlers for adding and removing liquidity
+        document.getElementById('addLiquidity').addEventListener('click', () => {
+            alert("Add Liquidity feature will be added here.");
+        });
+
+        document.getElementById('removeLiquidity').addEventListener('click', () => {
+            alert("Remove Liquidity feature will be added here.");
+        });
+    </script>
+</body>
+</html>
